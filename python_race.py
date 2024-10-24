@@ -44,27 +44,15 @@ def update_plot(num):
     plane_4.set_data([x[num]-40,x[num]-30],[y[num]+0.15,y[num]])
     plane_5.set_data([x[num]-40,x[num]-30],[y[num]-0.15,y[num]])
 
-    ax0_vertical.set_data([x[num],x[num]],[0,y[num]])
-
-    stopwatch0.set_text(str(round(t[num],1))+' hrs')
-    dist_counter0.set_text(str(int(x[num]))+' km')
-
     # 2nd subplot
     x_dist.set_data(t[0:num],x[0:num])
-    horizontal_line.set_data([t[0],t[num]],[x[num],x[num]])
-    horizontal_line.set_data([t[0],t[num]],[x[num],x[num]])
-    vertical_line.set_data([t[num],t[num]],[x[0],x[num]])
 
     # 3rd subplot
     speed.set_data(t[0:num],speed_x[0:num])
-    vertical_line_ax4.set_data([t[num],t[num]],[0,speed_x[num]])
-    division_speed.set_text('dX/dt = '+str(int(speed_x[num]))+' km/hr')
 
 
     return plane_trajectory,plane_1,plane_2,plane_3,plane_4,plane_5,\
-        stopwatch0,dist_counter0,x_dist,horizontal_line,vertical_line, \
-        ax0_vertical,speed,vertical_line_ax4, \
-        division_speed
+        x_dist,speed,
 
 
 fig=plt.figure(figsize=(16,9),dpi=80,facecolor=(0.8,0.8,0.8))
@@ -83,20 +71,6 @@ plane_3,=ax0.plot([],[],'k',linewidth=5)
 plane_4,=ax0.plot([],[],'k',linewidth=3)
 plane_5,=ax0.plot([],[],'k',linewidth=3)
 
-ax0_vertical,=ax0.plot([],[],'k:o',linewidth=2)
-
-# Draw buildings
-building_1,=ax0.plot([100,100],[0,1.0],'k',linewidth=7)
-building_2,=ax0.plot([300,300],[0,1.0],'k',linewidth=7)
-building_3,=ax0.plot([700,700],[0,0.7],'k',linewidth=15)
-building_4,=ax0.plot([900,900],[0,0.9],'k',linewidth=10)
-building_5,=ax0.plot([1300,1300],[0,1.0],'k',linewidth=20)
-
-box_object=dict(boxstyle='square',fc=(0.9,0.9,0.9),ec='g',lw=1)
-stopwatch0=ax0.text(1350,0.85,'',size=20,color='g',bbox=box_object)
-
-box_object2=dict(boxstyle='square',fc=(0.9,0.9,0.9),ec='g',lw=1)
-dist_counter0=ax0.text(1350,0.3,'',size=20,color='r',bbox=box_object2)
 
 # Subplot properties
 plt.xlim(x[0],x[-1])
@@ -112,8 +86,6 @@ plt.grid(True)
 # Subplot 2
 ax2=fig.add_subplot(gs[1,0],facecolor=(0.9,0.9,0.9))
 x_dist,=ax2.plot([],[],'-b',linewidth=3,label='X = '+str(a)+'*t^'+str(n2))
-horizontal_line,=ax2.plot([],[],'r:o',linewidth=2,label='Horizontal line')
-vertical_line,=ax2.plot([],[],'g:o',linewidth=2,label='Vertical line')
 plt.xlim(t[0],t[-1])
 plt.ylim(x[0],x[-1])
 plt.xticks(np.arange(t[0],t[-1]+dt,t[-1]/4))
@@ -127,8 +99,6 @@ plt.legend(loc='upper left',fontsize='x-large')
 # Subplot 3
 ax4=fig.add_subplot(gs[1,1],facecolor=(0.9,0.9,0.9))
 speed,=ax4.plot([],[],'-b',linewidth=3,label='dX/dt = '+str(n2*a)+'*t^('+str(n2-1)+')')
-vertical_line_ax4,=ax4.plot([],[],'b:o',linewidth=2)
-division_speed=ax4.text(0.1,speed_x[-1]*2*0.8,'',fontsize=20,color='b')
 plt.xlim(t[0],t[-1])
 plt.ylim(x[0],speed_x[-1]*2)
 plt.xticks(np.arange(t[0],t[-1]+dt,t[-1]/4),size=10)
