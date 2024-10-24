@@ -22,6 +22,8 @@ altitude1=2.5 # [km]
 y1=np.ones(len(t))*altitude1
 
 # Speed in the x direction
+if n1<1:
+    t[0]=t[1]
 speed_x1=n1*a1*t**(n1-1)
 
 ########## AIRPLANE 2 ##########
@@ -35,6 +37,8 @@ altitude2=1.5 # [km]
 y2=np.ones(len(t))*altitude2
 
 # Speed in the x direction
+if n2<1:
+    t[0]=t[1]
 speed_x2=n2*a2*t**(n2-1)
 
 ########## AIRPLANE 3 ##########
@@ -48,6 +52,8 @@ altitude3=0.5 # [km]
 y3=np.ones(len(t))*altitude3
 
 # Speed in the x direction
+if n3<1:
+    t[0]=t[1]
 speed_x3=n3*a3*t**(n3-1)
 
 #################### ANIMATION ####################
