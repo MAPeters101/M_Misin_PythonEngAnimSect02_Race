@@ -11,48 +11,54 @@ dt=0.005 # [hrs]
 # Create array for time
 t=np.arange(t0,t_end+dt,dt)
 
+# Airplane 1
+
 # Create an x array
-a=400
-n2=2
-x=a*t**n2 # [km]
+a1=400
+n1=2
+x1=a1*t**n1 # [km]
 
 # Create a y array
-altitude=2 # [km]
-y=np.ones(len(t))*altitude
+altitude1=2.5 # [km]
+y1=np.ones(len(t))*altitude1
 
 # Speed in the x direction
-speed_x=n2*a*t**(n2-1)
+speed_x1=n1*a1*t**(n1-1)
+
 #################### ANIMATION ####################
 frame_amount=len(t)
-dot=np.zeros(frame_amount)
+dot1=np.zeros(frame_amount)
 n=20
 for i in range(0,frame_amount):
     if i==n:
-        dot[i]=x[n]
+        dot1[i]=x1[n]
         n+=20
     else:
-        dot[i]=x[n-20]
+        dot1[i]=x1[n-20]
+
+
+
+
+
 
 def update_plot(num):
 
     # 1st subplot
-    plane_trajectory.set_data(dot[0:num],y[0:num])
-
-    plane_1.set_data([x[num]-40,x[num]+20],[y[num],y[num]])
-    plane_2.set_data([x[num]-20,x[num]],[y[num]+0.3,y[num]])
-    plane_3.set_data([x[num]-20,x[num]],[y[num]-0.3,y[num]])
-    plane_4.set_data([x[num]-40,x[num]-30],[y[num]+0.15,y[num]])
-    plane_5.set_data([x[num]-40,x[num]-30],[y[num]-0.15,y[num]])
+    plane1_trajectory.set_data(dot1[0:num],y1[0:num])
+    plane1_1.set_data([x1[num]-40,x1[num]+20],[y1[num],y1[num]])
+    plane1_2.set_data([x1[num]-20,x1[num]],[y1[num]+0.3,y1[num]])
+    plane1_3.set_data([x1[num]-20,x1[num]],[y1[num]-0.3,y1[num]])
+    plane1_4.set_data([x1[num]-40,x1[num]-30],[y1[num]+0.15,y1[num]])
+    plane1_5.set_data([x1[num]-40,x1[num]-30],[y1[num]-0.15,y1[num]])
 
     # 2nd subplot
-    x_dist.set_data(t[0:num],x[0:num])
+    x_dist1.set_data(t[0:num],x1[0:num])
 
     # 3rd subplot
-    speed.set_data(t[0:num],speed_x[0:num])
+    speed1.set_data(t[0:num],speed_x1[0:num])
 
-
-    return plane_trajectory,plane_1,plane_2,plane_3,plane_4,plane_5,\
-        x_dist,speed,
+    return plane1_trajectory,plane1_1,plane1_2,plane1_3,plane1_4,plane1_5,\
+        x_dist1,speed1,
 
 
 fig=plt.figure(figsize=(16,9),dpi=80,facecolor=(0.8,0.8,0.8))
@@ -61,22 +67,21 @@ gs=gridspec.GridSpec(2,2)
 # Subplot 1
 ax0=fig.add_subplot(gs[0,:],facecolor=(0.9,0.9,0.9))
 
-# Line following the airplane
-plane_trajectory,=ax0.plot([],[],'r:o',linewidth=2)
-
 # Airplane lines
-plane_1,=ax0.plot([],[],'k',linewidth=10)
-plane_2,=ax0.plot([],[],'k',linewidth=5)
-plane_3,=ax0.plot([],[],'k',linewidth=5)
-plane_4,=ax0.plot([],[],'k',linewidth=3)
-plane_5,=ax0.plot([],[],'k',linewidth=3)
+plane1_1,=ax0.plot([],[],'k',linewidth=10)
+plane1_2,=ax0.plot([],[],'k',linewidth=5)
+plane1_3,=ax0.plot([],[],'k',linewidth=5)
+plane1_4,=ax0.plot([],[],'k',linewidth=3)
+plane1_5,=ax0.plot([],[],'k',linewidth=3)
+# Line following the airplane
+plane1_trajectory,=ax0.plot([],[],'r:o',linewidth=2)
 
 
 # Subplot properties
-plt.xlim(x[0],x[-1])
-plt.ylim(0,y[0]+1)
-plt.xticks(np.arange(x[0],x[-1]+1,x[-1]/4),size=15)
-plt.yticks(np.arange(0,y[-1]+2,1),size=15)
+plt.xlim(x1[0],x1[-1])
+plt.ylim(0,y1[0]+0.5)
+plt.xticks(np.arange(x1[0],x1[-1]+1,x1[-1]/4),size=15)
+plt.yticks(np.arange(0,y1[-1]+1,1),size=15)
 plt.xlabel('x-distance',fontsize=15)
 plt.ylabel('y-distance',fontsize=15)
 plt.title('Airplane',fontsize=20)
@@ -85,11 +90,11 @@ plt.grid(True)
 
 # Subplot 2
 ax2=fig.add_subplot(gs[1,0],facecolor=(0.9,0.9,0.9))
-x_dist,=ax2.plot([],[],'-b',linewidth=3,label='X = '+str(a)+'*t^'+str(n2))
+x_dist1,=ax2.plot([],[],'-b',linewidth=3,label='X = '+str(a1)+'*t^'+str(n1))
 plt.xlim(t[0],t[-1])
-plt.ylim(x[0],x[-1])
+plt.ylim(x1[0],x1[-1])
 plt.xticks(np.arange(t[0],t[-1]+dt,t[-1]/4))
-plt.yticks(np.arange(x[0],x[-1]+1,x[-1]/4))
+plt.yticks(np.arange(x1[0],x1[-1]+1,x1[-1]/4))
 plt.xlabel('time [hrs]',fontsize=15)
 plt.ylabel('x-distance [km]',fontsize=15)
 plt.title('X-distance VS time',fontsize=15)
@@ -98,11 +103,11 @@ plt.legend(loc='upper left',fontsize='x-large')
 
 # Subplot 3
 ax4=fig.add_subplot(gs[1,1],facecolor=(0.9,0.9,0.9))
-speed,=ax4.plot([],[],'-b',linewidth=3,label='dX/dt = '+str(n2*a)+'*t^('+str(n2-1)+')')
+speed1,=ax4.plot([],[],'-b',linewidth=3,label='dX/dt = '+str(n1 * a1)+'*t^('+str(n1-1)+')')
 plt.xlim(t[0],t[-1])
-plt.ylim(x[0],speed_x[-1]*2)
+plt.ylim(x1[0],speed_x1[-1]*2)
 plt.xticks(np.arange(t[0],t[-1]+dt,t[-1]/4),size=10)
-plt.yticks(np.arange(0,speed_x[-1]*2+1,speed_x[-1]*2/4),size=10)
+plt.yticks(np.arange(0, speed_x1[-1]*2+1,speed_x1[-1]*2/4),size=10)
 plt.xlabel('time [hrs]',fontsize=15)
 plt.ylabel('speed [km/hr]',fontsize=15)
 plt.title('Speed as a function of time',fontsize=15)
